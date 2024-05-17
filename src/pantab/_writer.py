@@ -5,10 +5,10 @@ import uuid
 from typing import Any, Literal, Optional, Union
 
 import tableauhyperapi as tab_api
+tab_api.HyperProcess(telemetry=tab_api.Telemetry.DO_NOT_SEND_USAGE_DATA_TO_TABLEAU, parameters={"log_config":""})
 
 import pantab._types as pantab_types
 import pantab.libpantab as libpantab
-
 
 def _validate_table_mode(table_mode: Literal["a", "w"]) -> None:
     if table_mode not in {"a", "w"}:
@@ -88,7 +88,7 @@ def frames_to_hyper(
     if geo_columns is None:
         geo_columns = set()
 
-    tmp_db = pathlib.Path(tempfile.gettempdir()) / f"{uuid.uuid4()}.hyper"
+    tmp_db = pathlib.Path(tempfile.gettempdir()) +"/data/"+ f"{uuid.uuid4()}.hyper"
 
     if table_mode == "a" and pathlib.Path(database).exists():
         shutil.copy(database, tmp_db)
